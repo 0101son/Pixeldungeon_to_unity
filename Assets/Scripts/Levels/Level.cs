@@ -6,26 +6,24 @@ public class Level
 	//StaticSetup
 	public static GameScene GameScript;
 	public static PathFinding PF;
+
 	protected Vector2Int size;
 
-	//
-
 	public int[,] map; //지형 정보
-	public bool[,] solid;
 	public bool[,] visited; //시야에 들어왔던 적이 있는 모든 구역
-	public bool[,] blocking;
 
 	public int viewDistance = 8; //시야(임시)
 
-	public bool[,] heroFOV; //현재 hero 시야
-	public HashSet<Mob> mobs;
+	public bool[,] blocking;
+	public bool[,] solid;
+	public int[,] items;
 
-	//
+	public bool[,] heroFOV; //현재 hero 시야
 
 	public Vector2Int entrance;
 	public Vector2Int exit;
 	//
-
+	public HashSet<Mob> mobs;
 	//reset() -> 안씀
 
 	public static void StaticSetup()
@@ -49,10 +47,13 @@ public class Level
 		
 		size.x = map.GetLength(0);
 		size.y = map.GetLength(1);
+
 		solid = new bool[size.x, size.y];// Can't See thrugh; ex) wall
 		visited = new bool[size.x, size.y];
 		blocking = new bool[size.x, size.y];// Can't go through; ex) Someone is standing on the tile
 		heroFOV = new bool[size.x, size.y];
+		items = new int[size.x, size.y];
+
 		for (int y = 0; y < size.y; y++)
 		{
 			for (int x = 0; x < size.x; x++)
@@ -60,6 +61,7 @@ public class Level
 				solid[x, y] = (map[x, y] == 1);
 				visited[x, y] = false;
 				blocking[x, y] = false;
+				items[x, y] = 0;
 			}
 		}
 		Spawn(Dungeon.hero,entrance);

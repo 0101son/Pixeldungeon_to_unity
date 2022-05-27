@@ -13,7 +13,7 @@ public abstract class Actor
 
     public abstract bool Act();
 
-    protected void Spend(int time)
+    public void Spend(int time)
     {
         this.time += time;
     }

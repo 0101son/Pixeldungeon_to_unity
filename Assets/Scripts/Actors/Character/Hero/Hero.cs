@@ -39,6 +39,27 @@ public class Hero : Char
     {
         
         Dungeon.level.UpdateFieldOfView(target);
+        int floor = Dungeon.level.items[target.x, target.y];
+        if (floor > 0)
+        {
+            int gain;
+            if (HP + floor > HT)
+            {
+                gain = HT - HP;
+                HP = HT;
+            }
+            else
+            {
+                gain = floor;
+                HP += floor;
+            }
+
+            sprite.EnqueueClip(new RecoveryClip(this,gain));
+            
+            Dungeon.level.items[target.x, target.y] = 0;
+            
+        }
+
         base.MoveTo(target);
 
     }
@@ -81,6 +102,14 @@ public class Hero : Char
     {
         base.Attack(target);
         gameScript.endAnimationQueue = true;
+    }
+
+    public override void Die()
+    {
+        Debug.Log("P: Hero's advanture stops");
+        gameScript.endAnimationQueue = true;
+        gameScript.IsHeroAlive = false;
+        base.Die();
     }
 
     public int VisibleEnemies()

@@ -85,19 +85,29 @@ public abstract class Char : Actor
             target.Die();
         }
         Spend(attackSpeed);
-        sprite.EnqueueActionClip(new AttackClip(this, target, damage));
+        sprite.EnqueueClip(new AttackClip(this, target, damage));
         
+    }
+
+    public virtual void Drop(int quantity)
+    {
+        Debug.Log("P: " + this + "Drops item");
+        Dungeon.level.items[position.x,position.y] += quantity;
+        Spend(10);
+
+    }
+
+    public virtual void PickUp(int quantity)
+    {
+        Debug.Log("P: " + this + "PickUp Item");
+        Dungeon.level.items[position.x, position.y] -= quantity;
+        Spend(10);
+
     }
 
     public virtual void Die()
     {
         Debug.Log("P: " + this + "Die");
-        if (this is Hero)
-        {
-            Debug.Log("P: Hero's advanture stops");
-            gameScript.endAnimationQueue = true;
-            gameScript.IsHeroAlive = false;
-        }
 
         HP = 0;
         Dungeon.level.blocking[position.x, position.y] = false;
@@ -108,13 +118,12 @@ public abstract class Char : Actor
     {
         Debug.Log("P: " + this + "Moves to " + target);
         Spend(moveSpeed);
-        sprite.EnqueueNonActionClip(new MovingClip(position, target, Dungeon.level.heroFOV[target.x,target.y]));
+        sprite.EnqueueClip(new MovingClip(position, target, Dungeon.level.heroFOV[target.x,target.y]));
         Dungeon.level.blocking[position.x, position.y] = false;
         position = target;
         Dungeon.level.blocking[position.x, position.y] = true;
 
     }
-
 
     public Vector2Int NextStepTo(Vector2Int target)
     {

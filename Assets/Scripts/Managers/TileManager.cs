@@ -5,10 +5,12 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public Sprite[] sprites;
-    
+    public Sprite food;
+
     private Vector2Int gridSize;
     private bool gridSet = false;
     public GameObject[,] tileGrid;
+    public GameObject[,] itemGrid;
 
     //새로고침
     public void Refresh(in int[,] map, in bool[,] visited, in bool[,] heroFOV)
@@ -22,12 +24,30 @@ public class TileManager : MonoBehaviour
                 temp = tileGrid[x, y].GetComponent<SpriteRenderer>();
                 Color debugColor = new Color(1f, 1f, 1f, 1);
                 temp.sprite = sprites[map[x, y]];
+
                 if (heroFOV[x, y] == false)
                     debugColor = new Color(0.7f, 0.7f, 0.7f, 1);
                 if (visited[x, y] == false)
-                    debugColor = new Color(0f, 0f, 0f, 1);
+                    debugColor = new Color(1, 1, 1, 0);
                 
                 temp.color = debugColor;
+
+                temp = itemGrid[x, y].GetComponent<SpriteRenderer>();
+                if(heroFOV[x,y] == true)
+                {
+                    if (Dungeon.level.items[x, y] != 0)
+                        temp.color = new Color(1f, 1f, 1f, 1);
+                    else
+                        temp.color = new Color(1f, 1f, 1f, 0);
+                }
+                else
+                {
+                    if(visited[x,y] == true && temp.color.a == 1)
+                    {
+                        temp.color = new Color(1f, 1f, 1f, 0.5f);
+                    }
+                }
+
             }
         }
 
@@ -43,13 +63,25 @@ public class TileManager : MonoBehaviour
 
         gridSize = size;
         tileGrid = new GameObject[size.x, size.y];
+        itemGrid = new GameObject[size.x, size.y];
         for (int i = 0; i < gridSize.y; i++)
         {
             for (int j = 0; j < gridSize.x; j++)
             {
-                tileGrid[j, i] = new GameObject("Tile[" + j + "," + i + "]");
-                tileGrid[j, i].transform.position = new Vector3(j, i, 0);
-                tileGrid[j, i].AddComponent<SpriteRenderer>();
+                GameObject temp = new GameObject("Tile[" + j + "," + i + "]");
+
+                temp.transform.position = new Vector3(j, i, 0);
+                temp.AddComponent<SpriteRenderer>();
+                tileGrid[j, i] = temp;
+
+                GameObject ItemTemp = new GameObject("Item[" + j + "," + i + "]");
+
+                ItemTemp.transform.position = new Vector3(j, i, -1);
+                ItemTemp.AddComponent<SpriteRenderer>();
+                SpriteRenderer tempRenderer = ItemTemp.GetComponent<SpriteRenderer>();
+                tempRenderer.color = new Color(1, 1, 1, 0);
+                tempRenderer.sprite = food;
+                itemGrid[j, i] = ItemTemp;
             }
         }
         gridSet = true;

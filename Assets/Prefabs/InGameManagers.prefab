@@ -49,7 +49,8 @@ MonoBehaviour:
   tileScript: {fileID: 0}
   onControll: 0
   spriteActing: 0
-  endEnqueue: 0
+  endAnimationQueue: 0
+  IsHeroAlive: 1
 --- !u!114 &4036223947092496130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +66,7 @@ MonoBehaviour:
   sprites:
   - {fileID: 7987151303939760886, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
   - {fileID: -6497947351442432424, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
+  food: {fileID: 2242210235191273320, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
 --- !u!114 &-2064629050437427071
 MonoBehaviour:
   m_ObjectHideFlags: 0

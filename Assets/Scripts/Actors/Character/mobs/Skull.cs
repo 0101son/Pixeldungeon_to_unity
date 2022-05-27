@@ -14,5 +14,12 @@ public class Skull : Mob
         damage = 1;
 
         moveSpeed = 10;
+    
+    }
+
+    public override void Die()
+    {
+        Dungeon.level.items[position.x, position.y] += 1;
+        base.Die();
     }
 }

@@ -46,8 +46,18 @@ public class CharSprite : MonoBehaviour
             ActionClip currentClip = actionQueue.Dequeue();
             Debug.Log("C: play action animation of " + currentClip.who);
             if(currentClip is AttackClip attackClip)
-                attackClip.who.sprite.Attack(attackClip,moveTime/2);
-            yield return new WaitForSeconds(moveTime);
+            {
+                attackClip.who.sprite.Attack(attackClip, moveTime / 2);
+                yield return new WaitForSeconds(moveTime/2);
+            }
+                
+            if(currentClip is RecoveryClip recoveryClip)
+            {
+                recoveryClip.who.sprite.Recovery(recoveryClip, moveTime*1.25f);
+                yield return new WaitForSeconds(moveTime/4);
+            }
+                
+            
         }
         GameScene.instance.spriteActing = false;
     }
@@ -99,17 +109,19 @@ public class CharSprite : MonoBehaviour
         //Debug.Log(moveTime);
     }
 
-    public void EnqueueNonActionClip(MovingClip clip)
+    public void EnqueueClip(SpriteClip clip)
     {
-        Debug.Log("C: ID no." + ID + " Enqueued - " + clip);
-        nonActionQueueEmpty = false;
-        nonActionQueue.Enqueue(clip);
-    }
-
-    public void EnqueueActionClip(ActionClip clip)
-    {
-        Debug.Log("C: ID no." + ID + " Enqueued - " + clip);
-        actionQueue.Enqueue(clip);
+        if(clip is MovingClip movingClip)
+        {
+            Debug.Log("C: ID no." + ID + " Enqueued - " + movingClip);
+            nonActionQueueEmpty = false;
+            nonActionQueue.Enqueue(movingClip);
+        }
+        if (clip is ActionClip actionClip)
+        {
+            Debug.Log("C: ID no." + ID + " Enqueued - " + actionClip);
+            actionQueue.Enqueue(actionClip);
+        }
     }
 
     private void StartNonActionCoroutine()
@@ -200,6 +212,29 @@ public class CharSprite : MonoBehaviour
             yield return null;
         }
         transform.position = start;
+    }
+
+    private void Recovery(RecoveryClip clip, float time)
+    {
+        StartCoroutine(Recovery(clip.who, clip.HPGain, time));
+    }
+
+    private IEnumerator Recovery(Char who, int HPGain, float clipLength)
+    {
+        float time = 0;
+
+        who.sprite.HP += HPGain;
+
+        float invClipLength = 0.5f / clipLength;
+        while (time < clipLength)
+        {
+            float dt = Time.deltaTime;
+            time += dt;
+            //Debug.Log("ID no." + ID + "turning " + new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + floatVisible * dt * invClipLength));
+            spriteRenderer.color = new Color(time * invClipLength + 0.5f, spriteRenderer.color.g, time * invClipLength + 0.5f);
+            yield return null;
+        }
+        spriteRenderer.color = Color.white;
     }
 
     private void Die()

@@ -13,7 +13,6 @@ public class MovingClip : SpriteClip
         this.from = from;
         this.to = to;
         this.visible = visible;
-        
     }
 
     public override string ToString()
