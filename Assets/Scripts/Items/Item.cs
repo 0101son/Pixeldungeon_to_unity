@@ -38,7 +38,18 @@ public class Item
     {
 		hero.Spend(TIME_TO_DROP);
 		Vector2Int position = hero.position;
-		Dungeon.level.Drop(this, position);
+		Dungeon.level.Drop(DetachAll(hero), position);
+    }
+
+	public Item DetachAll(Hero hero)
+    {
+		if(hero.belonging == this)
+        {
+			hero.belonging = null;
+			return this;
+        }
+
+		return this;
     }
 
 	public bool Collect(Hero hero)

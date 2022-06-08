@@ -79,6 +79,10 @@ public class InputManager : MonoBehaviour
         {
             input = new InputType.Character('E');
         }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            input = new InputType.Character('D');
+        }
 
         if (input == null) return;
 
@@ -125,6 +129,13 @@ public class InputManager : MonoBehaviour
             if (charInput.character == 'E')
             {
                 if (Dungeon.hero.ActConsume())
+                    GameScene.instance.onControll = false;
+                return;
+            }
+
+            if (charInput.character == 'D')
+            {
+                if (Dungeon.hero.ActDrop())
                     GameScene.instance.onControll = false;
                 return;
             }

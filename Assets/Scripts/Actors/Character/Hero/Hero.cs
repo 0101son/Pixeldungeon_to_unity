@@ -83,6 +83,23 @@ public class Hero : Char
         return false;
     }
 
+    public bool ActDrop()
+    {
+        if (belonging != null)
+        {
+            belonging.DoDrop(this);
+            UIManager.instance.Change(belonging);
+            gameScript.endAnimationQueue = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+
+    }
+
     public bool ActPickUp()
     {
         List<Item> loot = Dungeon.level.item[position.x, position.y];
