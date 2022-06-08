@@ -19,7 +19,7 @@ public class Skull : Mob
 
     public override void Die()
     {
-        Dungeon.level.items[position.x, position.y] += 1;
+        Dungeon.level.Drop(new Item(Item.Type.Potion, 1),position);
         base.Die();
     }
 }

@@ -121,6 +121,8 @@ public class CharSprite : MonoBehaviour
         {
             Debug.Log("C: ID no." + ID + " Enqueued - " + actionClip);
             actionQueue.Enqueue(actionClip);
+            GameScene.instance.endAnimationQueue = true;
+
         }
     }
 

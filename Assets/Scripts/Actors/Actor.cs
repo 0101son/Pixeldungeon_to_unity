@@ -58,12 +58,12 @@ public abstract class Actor
     {
         Actor current = PickNextActor();
 
-        if(current.time != now)
-        {
-            GameScene.instance.endAnimationQueue = true;
-            now = current.time;
-            return;
-        }
+        //if(current.time != now)
+        //{
+            //GameScene.instance.endAnimationQueue = true;
+        now = current.time;
+            //return;
+        //}
 
         if (current is Hero)
         {

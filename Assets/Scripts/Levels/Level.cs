@@ -16,7 +16,7 @@ public class Level
 
 	public bool[,] blocking;
 	public bool[,] solid;
-	public int[,] items;
+	public List<Item>[,] item;
 
 	public bool[,] heroFOV; //현재 hero 시야
 
@@ -52,7 +52,8 @@ public class Level
 		visited = new bool[size.x, size.y];
 		blocking = new bool[size.x, size.y];// Can't go through; ex) Someone is standing on the tile
 		heroFOV = new bool[size.x, size.y];
-		items = new int[size.x, size.y];
+		item = new List<Item>[size.x, size.y];
+		
 
 		for (int y = 0; y < size.y; y++)
 		{
@@ -61,9 +62,11 @@ public class Level
 				solid[x, y] = (map[x, y] == 1);
 				visited[x, y] = false;
 				blocking[x, y] = false;
-				items[x, y] = 0;
+				item[x, y] = new List<Item>();
 			}
 		}
+		Debug.Log(item[0, 0]);
+		Debug.Log(item[0, 0].Count);
 		Spawn(Dungeon.hero,entrance);
 		CreateMobs();
 		
@@ -83,6 +86,23 @@ public class Level
 		Mob enemy = new Skull();
 
 		return enemy;
+    }
+
+	public Item Drop(Item item, Vector2Int cell)
+    {
+		List<Item> placeToDrop = this.item[cell.x, cell.y];
+		
+		foreach(Item loot in placeToDrop)
+        {
+			if(loot.type == item.type)
+            {
+				loot.quantity += item.quantity;
+				return loot ;
+            }
+        }
+
+		placeToDrop.Add(item);
+		return item;
     }
 
 	public void Spawn(Char toSpawn, Vector2Int position)
@@ -128,23 +148,4 @@ public class Level
 		PF = new PathFinding(walkableMap);
 		return PF.FindPath(start, target);
 	}
-
-	/*
-	public IEnumerator MoveEnemies()
-    {
-		
-		GameScript.enemiesMoving = true;
-
-		foreach (Mob enemy in mobs)
-        {
-			enemy.Act();
-			
-		}
-
-		yield return new WaitForSeconds(GameScript.moveTime);
-		GameScript.onControll = true;
-
-		GameScript.enemiesMoving = false;
-	}
-	*/
 }

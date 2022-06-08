@@ -6,6 +6,9 @@ public class Hero : Char
 {
     public Hero()
     {
+        visibleEnemies = new List<Mob>();
+        belonging = null;
+
         actPriority = HERO_PRIO;
         charID = 0;
 
@@ -15,9 +18,12 @@ public class Hero : Char
         damage = 1;
 
         moveSpeed = 10;
+
     }
 
+    public Item belonging;
     private List<Mob> visibleEnemies;
+
 
     public override void Initiate(Vector2Int initPosition)
     {
@@ -26,7 +32,6 @@ public class Hero : Char
         base.Initiate(initPosition);
         visible = true;
         sprite.focus = true;
-        visibleEnemies = new List<Mob>();
     }
 
 
@@ -37,28 +42,8 @@ public class Hero : Char
 
     public override void MoveTo(Vector2Int target)
     {
-        
-        Dungeon.level.UpdateFieldOfView(target);
-        int floor = Dungeon.level.items[target.x, target.y];
-        if (floor > 0)
-        {
-            int gain;
-            if (HP + floor > HT)
-            {
-                gain = HT - HP;
-                HP = HT;
-            }
-            else
-            {
-                gain = floor;
-                HP += floor;
-            }
 
-            sprite.EnqueueClip(new RecoveryClip(this,gain));
-            
-            Dungeon.level.items[target.x, target.y] = 0;
-            
-        }
+        Dungeon.level.UpdateFieldOfView(target);
 
         base.MoveTo(target);
 
@@ -70,7 +55,7 @@ public class Hero : Char
 
         bool newMob = false;
 
-        foreach(Mob mob in Dungeon.level.mobs)
+        foreach (Mob mob in Dungeon.level.mobs)
         {
             if (Dungeon.level.heroFOV[mob.position.x, mob.position.y])
             {
@@ -98,16 +83,48 @@ public class Hero : Char
         return false;
     }
 
-    public override void Attack(Char target)
+    public bool ActPickUp()
     {
-        base.Attack(target);
-        gameScript.endAnimationQueue = true;
+        List<Item> loot = Dungeon.level.item[position.x, position.y];
+        int count = loot.Count;
+        if (count != 0)
+        {
+            Item item = loot[count - 1];
+            if (item.DoPickUp(this))
+            {
+                UIManager.instance.Change(belonging);
+                loot.RemoveAt(count - 1);
+                gameScript.endAnimationQueue = true;
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    public bool ActConsume()
+    {
+        if (HP == HT || belonging == null) return false;
+
+        if (belonging.type == Item.Type.Food)
+        {
+            Heal(belonging.quantity * 1);
+        }
+
+        if (belonging.type == Item.Type.Potion)
+        {
+            Heal(belonging.quantity * 2);
+        }
+
+        belonging = null;
+        UIManager.instance.Change(null);
+        return true;
     }
 
     public override void Die()
     {
         Debug.Log("P: Hero's advanture stops");
-        gameScript.endAnimationQueue = true;
         gameScript.IsHeroAlive = false;
         base.Die();
     }

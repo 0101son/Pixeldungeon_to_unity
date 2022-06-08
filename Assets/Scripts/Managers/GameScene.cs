@@ -6,6 +6,7 @@ public class GameScene : MonoBehaviour
 {
     public static GameScene instance = null;
     public TileManager tileScript;
+    public Canvas UI;
     public bool onControll = false;
     public readonly float moveTime = 0.2f;
     public bool spriteActing = false;

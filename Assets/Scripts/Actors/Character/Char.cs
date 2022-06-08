@@ -89,20 +89,22 @@ public abstract class Char : Actor
         
     }
 
-    public virtual void Drop(int quantity)
+    public int Heal(int heal)
     {
-        Debug.Log("P: " + this + "Drops item");
-        Dungeon.level.items[position.x,position.y] += quantity;
-        Spend(10);
+        //Debug.Log("heal amount: " + heal);
 
-    }
-
-    public virtual void PickUp(int quantity)
-    {
-        Debug.Log("P: " + this + "PickUp Item");
-        Dungeon.level.items[position.x, position.y] -= quantity;
-        Spend(10);
-
+        if (HP + heal > HT)
+        {
+            sprite.EnqueueClip(new RecoveryClip(this, HT - HP));
+            HP = HT;
+            return HT - HP;
+        }
+        else
+        {
+            sprite.EnqueueClip(new RecoveryClip(this, heal));
+            HP += heal;
+            return heal;
+        }
     }
 
     public virtual void Die()

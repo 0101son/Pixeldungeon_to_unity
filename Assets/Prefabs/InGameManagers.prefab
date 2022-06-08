@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileScript: {fileID: 0}
+  UI: {fileID: 0}
   onControll: 0
   spriteActing: 0
   endAnimationQueue: 0
@@ -66,7 +67,8 @@ MonoBehaviour:
   sprites:
   - {fileID: 7987151303939760886, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
   - {fileID: -6497947351442432424, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
-  food: {fileID: 2242210235191273320, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
+  food: {fileID: 9221051278112602085, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
+  potion: {fileID: 2242210235191273320, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
 --- !u!114 &-2064629050437427071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6db4d9fc9148240a20ae8d19f9ae09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {x: 0, y: 0}
 --- !u!114 &7102156528705097222
 MonoBehaviour:
   m_ObjectHideFlags: 0

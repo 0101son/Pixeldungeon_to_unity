@@ -4,74 +4,132 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public Vector2Int input;
+    public InputType input;
 
+    public class InputType
+    {
+        public class Direction : InputType
+        {
+            public Vector2Int direction;
+            public Direction(int x, int y)
+            {
+                direction = new Vector2Int(x, y);
+            }
+            
+        }
+
+        public class Character : InputType
+        {
+            public char character;
+            public Character(char input)
+            {
+                character = input;
+            }
+
+        }
+    }
 
     void Update()
     {
         if (!GameScene.instance.onControll || !Input.anyKeyDown || GameScene.instance.spriteActing == true) return;
 
+        input = null;
+
         if (Input.GetKey(KeyCode.Keypad1))
         {
-            input = new Vector2Int(-1, -1);
+            input = new InputType.Direction(-1, -1);
         }
         else if (Input.GetKey(KeyCode.Keypad2))
         {
-            input = new Vector2Int(0, -1);
+            input = new InputType.Direction(0, -1);
         }
         else if (Input.GetKey(KeyCode.Keypad3))
         {
-            input = new Vector2Int(1, -1);
+            input = new InputType.Direction(1, -1);
         }
         else if (Input.GetKey(KeyCode.Keypad4))
         {
-            input = new Vector2Int(-1, 0);
+            input = new InputType.Direction(-1, 0);
         }
         else if (Input.GetKey(KeyCode.Keypad6))
         {
-            input = new Vector2Int(1, 0);
+            input = new InputType.Direction(1, 0);
         }
         else if (Input.GetKey(KeyCode.Keypad7))
         {
-            input = new Vector2Int(-1, 1);
+            input = new InputType.Direction(-1, 1);
         }
         else if (Input.GetKey(KeyCode.Keypad8))
         {
-            input = new Vector2Int(0, 1);
+            input = new InputType.Direction(0, 1);
         }
         else if (Input.GetKey(KeyCode.Keypad9))
         {
-            input = new Vector2Int(1, 1);
+            input = new InputType.Direction(1, 1);
         }
-        else
+        else if (Input.GetKey(KeyCode.Keypad5))
         {
-            input = Vector2Int.zero;
+            input = new InputType.Character('5');
+        }
+        else if (Input.GetKey(KeyCode.G))
+        {
+            input = new InputType.Character('G');
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            input = new InputType.Character('E');
         }
 
-        if (input != Vector2Int.zero)
+        if (input == null) return;
+
+        if (input is InputType.Direction dirInput)
         {
-            if (Dungeon.hero.MoveToward(input) == true)
+            if (Dungeon.hero.MoveToward(dirInput.direction))
             {
-                
                 GameScene.instance.onControll = false;
                 return;
             }
-            foreach (Char mob in Actor.All())
+            else
             {
-                if (Dungeon.hero.position + input == mob.position)
+                foreach (Char mob in Actor.All())
                 {
-                    Dungeon.hero.Attack(mob);
-                    GameScene.instance.onControll = false;
-                    return;
+                    Vector2Int attackTile = Dungeon.hero.position + dirInput.direction;
+                    if (attackTile == mob.position)
+                    {
+                        Dungeon.hero.Attack(mob);
+                        GameScene.instance.onControll = false;
+                        return;
+                    }
                 }
+            }
+            
+        }
+
+        if (input is InputType.Character charInput)
+        {
+            if(charInput.character == '5')
+            {
+                Dungeon.hero.Rest();
+                GameScene.instance.onControll = false;
+                return;
+            }
+
+            
+            if (charInput.character == 'G')
+            {
+                if(Dungeon.hero.ActPickUp())
+                    GameScene.instance.onControll = false;
+                return;
+            }
+
+            if (charInput.character == 'E')
+            {
+                if (Dungeon.hero.ActConsume())
+                    GameScene.instance.onControll = false;
+                return;
             }
         }
 
-        if (Input.GetKey(KeyCode.Keypad5))
-        {
-            Dungeon.hero.Rest();
-            GameScene.instance.onControll = false;
-            return;
-        }
+
     }
 }

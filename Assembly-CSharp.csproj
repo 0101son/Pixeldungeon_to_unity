@@ -63,9 +63,10 @@
     <Compile Include="Assets\Scripts\Display\SpriteClip\SpriteClip.cs" />
     <Compile Include="Assets\Scripts\Actors\Actor.cs" />
     <Compile Include="Assets\Scripts\Actors\Character\Hero\Hero.cs" />
-    <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Actors\Character\Char.cs" />
     <Compile Include="Assets\Scripts\Utils\PathFinding\PathFinding.cs" />
+    <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameScene.cs" />
     <Compile Include="Assets\Scripts\Levels\ShadowCaster.cs" />
     <Compile Include="Assets\Scripts\Managers\SpriteManager.cs" />
@@ -85,11 +86,12 @@
     <Compile Include="Assets\Scripts\Utils\PathFinding\PathNode.cs" />
     <Compile Include="Assets\Scripts\Levels\TerrainGenerator.cs" />
     <Compile Include="Assets\Scripts\Levels\Utils\Symmetric Shadowcasting\Row.cs" />
+    <Compile Include="Assets\Scripts\Display\SpriteClip\ActionClip\RecoveryClip.cs" />
     <Compile Include="Assets\Scripts\Levels\Painter.cs" />
     <Compile Include="Assets\Scripts\Levels\Utils\Symmetric Shadowcasting\Tile.cs" />
     <Compile Include="Assets\Scripts\Dungeon.cs" />
     <Compile Include="Assets\Scripts\Levels\Utils\Symmetric Shadowcasting\Fraction.cs" />
-    <Compile Include="Assets\Scripts\Display\SpriteClip\ActionClip\RecoveryClip.cs" />
+    <Compile Include="Assets\Scripts\Display\UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

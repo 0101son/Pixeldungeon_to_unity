@@ -6,6 +6,7 @@ public class TileManager : MonoBehaviour
 {
     public Sprite[] sprites;
     public Sprite food;
+    public Sprite potion;
 
     private Vector2Int gridSize;
     private bool gridSet = false;
@@ -16,35 +17,44 @@ public class TileManager : MonoBehaviour
     public void Refresh(in int[,] map, in bool[,] visited, in bool[,] heroFOV)
     {
         
-        SpriteRenderer temp;
+        SpriteRenderer tempTile;
         for (int y = 0; y < gridSize.y; y++)
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                temp = tileGrid[x, y].GetComponent<SpriteRenderer>();
+                tempTile = tileGrid[x, y].GetComponent<SpriteRenderer>();
                 Color debugColor = new Color(1f, 1f, 1f, 1);
-                temp.sprite = sprites[map[x, y]];
+                tempTile.sprite = sprites[map[x, y]];
 
                 if (heroFOV[x, y] == false)
                     debugColor = new Color(0.7f, 0.7f, 0.7f, 1);
                 if (visited[x, y] == false)
                     debugColor = new Color(1, 1, 1, 0);
                 
-                temp.color = debugColor;
+                tempTile.color = debugColor;
 
-                temp = itemGrid[x, y].GetComponent<SpriteRenderer>();
+                tempTile = itemGrid[x, y].GetComponent<SpriteRenderer>();
                 if(heroFOV[x,y] == true)
                 {
-                    if (Dungeon.level.items[x, y] != 0)
-                        temp.color = new Color(1f, 1f, 1f, 1);
+                    List<Item> loot = Dungeon.level.item[x, y];
+                    if (loot.Count == 0)
+                        tempTile.color = new Color(1f, 1f, 1f, 0);
                     else
-                        temp.color = new Color(1f, 1f, 1f, 0);
+                    {
+                        if (loot[loot.Count-1].type == Item.Type.Potion)
+                            tempTile.sprite = potion;
+                        if (loot[loot.Count-1].type == Item.Type.Food)
+                            tempTile.sprite = food;
+
+                        tempTile.color = new Color(1f, 1f, 1f, 1);
+                    }
+                        
                 }
                 else
                 {
-                    if(visited[x,y] == true && temp.color.a == 1)
+                    if(visited[x,y] == true && tempTile.color.a == 1)
                     {
-                        temp.color = new Color(1f, 1f, 1f, 0.5f);
+                        tempTile.color = new Color(1f, 1f, 1f, 0.5f);
                     }
                 }
 

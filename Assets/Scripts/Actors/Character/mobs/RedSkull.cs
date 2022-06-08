@@ -15,4 +15,11 @@ public class RedSkull : Mob
 
         moveSpeed = 5;
     }
+
+    public override void Die()
+    {
+        Dungeon.level.Drop(new Item(Item.Type.Food, 1), position);
+        base.Die();
+    }
+
 }
