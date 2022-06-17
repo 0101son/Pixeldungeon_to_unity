@@ -5,8 +5,12 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public Sprite[] sprites;
-    public Sprite food;
-    public Sprite potion;
+    public Sprite tomato;
+    public Sprite ration;
+    public Sprite sword;
+
+    private readonly int TERRAN_Z_POSITION = 0;
+    private readonly int ITEM_Z_POSITION = -1; 
 
     private Vector2Int gridSize;
     private bool gridSet = false;
@@ -41,10 +45,12 @@ public class TileManager : MonoBehaviour
                         tempTile.color = new Color(1f, 1f, 1f, 0);
                     else
                     {
-                        if (loot[loot.Count-1].type == Item.Type.Potion)
-                            tempTile.sprite = potion;
-                        if (loot[loot.Count-1].type == Item.Type.Food)
-                            tempTile.sprite = food;
+                        if (loot[loot.Count-1] is Ration)
+                            tempTile.sprite = ration;
+                        if (loot[loot.Count-1] is Tomato)
+                            tempTile.sprite = tomato;
+                        if (loot[loot.Count - 1] is Weapon)
+                            tempTile.sprite = sword;
 
                         tempTile.color = new Color(1f, 1f, 1f, 1);
                     }
@@ -80,17 +86,17 @@ public class TileManager : MonoBehaviour
             {
                 GameObject temp = new GameObject("Tile[" + j + "," + i + "]");
 
-                temp.transform.position = new Vector3(j, i, 0);
+                temp.transform.position = new Vector3(j, i, TERRAN_Z_POSITION);
                 temp.AddComponent<SpriteRenderer>();
                 tileGrid[j, i] = temp;
 
                 GameObject ItemTemp = new GameObject("Item[" + j + "," + i + "]");
 
-                ItemTemp.transform.position = new Vector3(j, i, -1);
+                ItemTemp.transform.position = new Vector3(j, i, ITEM_Z_POSITION);
                 ItemTemp.AddComponent<SpriteRenderer>();
                 SpriteRenderer tempRenderer = ItemTemp.GetComponent<SpriteRenderer>();
                 tempRenderer.color = new Color(1, 1, 1, 0);
-                tempRenderer.sprite = food;
+                tempRenderer.sprite = null;
                 itemGrid[j, i] = ItemTemp;
             }
         }

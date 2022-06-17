@@ -67,8 +67,9 @@ MonoBehaviour:
   sprites:
   - {fileID: 7987151303939760886, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
   - {fileID: -6497947351442432424, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
-  food: {fileID: 9221051278112602085, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
-  potion: {fileID: 2242210235191273320, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
+  tomato: {fileID: 21300000, guid: 07485a885ad8262408fd2412fe88183f, type: 3}
+  ration: {fileID: 21300000, guid: 0966e5cf7b715a9409a48cb57c2ed79d, type: 3}
+  sword: {fileID: 21300000, guid: fb62aca69fe19b841b01e8d1a20aa358, type: 3}
 --- !u!114 &-2064629050437427071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 2756579043321359935, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
-  - {fileID: -4251768712096742070, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
-  - {fileID: 2348042427704209563, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
+  - {fileID: 21300000, guid: 8be369bbec2c5d4449d19b8d69973579, type: 3}
+  - {fileID: 21300000, guid: bb78319ccd26f3c41be953d8aa822cbf, type: 3}
+  - {fileID: 21300000, guid: 1623514a0c387d74cafb68099d946462, type: 3}
   CharPrefab: {fileID: 4160086497736468308, guid: fddbd5b9c418ea94aadcccf488e07e6c, type: 3}

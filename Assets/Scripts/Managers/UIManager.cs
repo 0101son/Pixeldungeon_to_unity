@@ -6,9 +6,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance = null;
 
-    public Sprite food;
-    public Sprite potion;
+    public Sprite tomato;
+    public Sprite ration;
+    public Sprite sword;
     public Image belonging;
+    public Image weapon;
     public Text text;
     
 
@@ -23,33 +25,59 @@ public class UIManager : MonoBehaviour
 
             Destroy(gameObject);
 
-        Change(null);
+        UpdateUI();
     }
 
 
-    public void Change(Item item)
+    public void UpdateUI()
     {
-        if(item == null)
+        Item backpack = Dungeon.hero.belongings.backpack;
+        Item weapon = Dungeon.hero.belongings.weapon;
+        
+
+        if(backpack == null)
         {
             belonging.color = new Color(1, 1, 1, 0);
             text.text = " ";
-            return;
         }
         else
         {
             belonging.color = new Color(1, 1, 1, 1);
+
+            if (backpack is Ration)
+            {
+                belonging.sprite = ration;
+            }
+
+            if (backpack is Tomato)
+            {
+                belonging.sprite = tomato;
+            }
+
+            if (backpack is Weapon)
+            {
+                belonging.sprite = sword;
+            }
+
+            if (backpack.stackable)
+                text.text = backpack.quantity.ToString();
+            else
+                text.text = null;
         }
 
-        if(item.type == Item.Type.Potion)
+        
+
+        Debug.Log("weapon: " + weapon);
+
+        if (weapon == null)
         {
-            belonging.sprite = potion;
+            this.weapon.color = new Color(1, 1, 1, 0);
         }
-
-        if (item.type == Item.Type.Food)
+        else
         {
-            belonging.sprite = food;
-        }
+            this.weapon.color = new Color(1, 1, 1, 1);
 
-        text.text = item.quantity.ToString();
+            this.weapon.sprite = sword;
+        }
     }
 }

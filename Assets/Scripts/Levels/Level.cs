@@ -65,8 +65,8 @@ public class Level
 				item[x, y] = new List<Item>();
 			}
 		}
-		Debug.Log(item[0, 0]);
-		Debug.Log(item[0, 0].Count);
+		//Debug.Log(item[0, 0]);
+		//Debug.Log(item[0, 0].Count);
 		Spawn(Dungeon.hero,entrance);
 		CreateMobs();
 		
@@ -91,16 +91,17 @@ public class Level
 	public Item Drop(Item item, Vector2Int cell)
     {
 		List<Item> placeToDrop = this.item[cell.x, cell.y];
-		
-		foreach(Item loot in placeToDrop)
-        {
-			if(loot.type == item.type)
-            {
-				loot.quantity += item.quantity;
-				return loot ;
-            }
-        }
-
+		if (item.stackable)
+		{
+			foreach (Item loot in placeToDrop)
+			{
+				if (loot.GetType() == item.GetType())
+				{
+					loot.quantity += item.quantity;
+					return loot;
+				}
+			}
+		}
 		placeToDrop.Add(item);
 		return item;
     }

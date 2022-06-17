@@ -83,6 +83,14 @@ public class InputManager : MonoBehaviour
         {
             input = new InputType.Character('D');
         }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            input = new InputType.Character('W');
+        }
+        else if (Input.GetKey(KeyCode.R))
+        {
+            input = new InputType.Character('R');
+        }
 
         if (input == null) return;
 
@@ -136,6 +144,20 @@ public class InputManager : MonoBehaviour
             if (charInput.character == 'D')
             {
                 if (Dungeon.hero.ActDrop())
+                    GameScene.instance.onControll = false;
+                return;
+            }
+
+            if (charInput.character == 'W')
+            {
+                if (Dungeon.hero.ActEquip())
+                    GameScene.instance.onControll = false;
+                return;
+            }
+
+            if (charInput.character == 'R')
+            {
+                if (Dungeon.hero.ActUnequip())
                     GameScene.instance.onControll = false;
                 return;
             }

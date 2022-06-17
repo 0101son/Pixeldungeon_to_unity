@@ -29,7 +29,6 @@ public abstract class Char : Actor
 
     public int charID;
 
-
     public static void StaticSetup()
     {
         //Debug.Log("Character StaticSetup");
@@ -79,13 +78,23 @@ public abstract class Char : Actor
     public virtual void Attack(Char target)
     {
         Debug.Log("P: " + this + "Attack" + target);
-        target.HP -= damage;
+        if(this is Hero hero && hero.belongings.weapon != null)
+        {
+            target.HP -= (damage + hero.belongings.weapon.damageBonus);
+            sprite.EnqueueClip(new AttackClip(this, target, damage + hero.belongings.weapon.damageBonus));
+        }
+        else
+        {
+            target.HP -= damage;
+            sprite.EnqueueClip(new AttackClip(this, target, damage));
+        }
+        
         if (target.HP <= 0)
         {
             target.Die();
         }
         Spend(attackSpeed);
-        sprite.EnqueueClip(new AttackClip(this, target, damage));
+        
         
     }
 

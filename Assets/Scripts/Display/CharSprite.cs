@@ -8,7 +8,7 @@ public class CharSprite : MonoBehaviour
 
     public static List<CharSprite> sprites = new List<CharSprite>();
 
-    readonly int CHAR_Z_LAYER = -1;
+    readonly int CHAR_Z_LAYER = -10;
 
     private Vector2Int position;
     public bool focus = false;

@@ -18,7 +18,7 @@ public class RedSkull : Mob
 
     public override void Die()
     {
-        Dungeon.level.Drop(new Item(Item.Type.Food, 1), position);
+        Dungeon.level.Drop(new Ration(), position);
         base.Die();
     }
 
