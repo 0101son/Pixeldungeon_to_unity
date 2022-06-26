@@ -6,6 +6,14 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance = null;
 
+    public GameObject[] Backpack;
+    public GameObject Weapon;
+    public GameObject Armor;
+    public GameObject Ring;
+    public GameObject Artifact;
+
+    public Image[] belongins; 
+
     public Sprite tomato;
     public Sprite ration;
     public Sprite sword;

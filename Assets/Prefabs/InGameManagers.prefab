@@ -69,7 +69,7 @@ MonoBehaviour:
   - {fileID: -6497947351442432424, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
   tomato: {fileID: 21300000, guid: 07485a885ad8262408fd2412fe88183f, type: 3}
   ration: {fileID: 21300000, guid: 0966e5cf7b715a9409a48cb57c2ed79d, type: 3}
-  sword: {fileID: 21300000, guid: fb62aca69fe19b841b01e8d1a20aa358, type: 3}
+  sword: {fileID: 2242210235191273320, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
 --- !u!114 &-2064629050437427071
 MonoBehaviour:
   m_ObjectHideFlags: 0

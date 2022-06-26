@@ -96,6 +96,11 @@
     <Compile Include="Assets\Scripts\Levels\Utils\Symmetric Shadowcasting\Tile.cs" />
     <Compile Include="Assets\Scripts\Dungeon.cs" />
     <Compile Include="Assets\Scripts\Levels\Utils\Symmetric Shadowcasting\Fraction.cs" />
+    <Compile Include="Assets\Scripts\ItemSlot.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\GPM\LICENSE.txt" />
+    <None Include="Assets\GPM\AssetManagement\XML\Language.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -757,6 +762,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="gpm_cachestorage.csproj">
+      <Project>{DECFE534-60E4-C3CE-5017-22A1FF4257B0}</Project>
+      <Name>gpm_cachestorage</Name>
+    </ProjectReference>
+    <ProjectReference Include="gpm_common.csproj">
+      <Project>{E593E0C1-16B9-1474-6EAD-5BC48F6C557E}</Project>
+      <Name>gpm_common</Name>
+    </ProjectReference>
+    <ProjectReference Include="gpm_ui.csproj">
+      <Project>{808EF8B4-197A-2346-E5B4-0A70293E42D5}</Project>
+      <Name>gpm_ui</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
