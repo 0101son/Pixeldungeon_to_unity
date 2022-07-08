@@ -15,23 +15,24 @@ public class ItemSlot : MonoBehaviour
     void Awake()
     {
         Image = GetComponent<Image>();
+        text = transform.GetChild(0).GetComponent<Text>();
+    }
 
+    public void OnClick()
+    {
+        Clear();
     }
 
     public void Clear()
     {
-        Item(null);
+        SetItem(null);
     }
 
-    public void Item(Item item)
+    public void SetItem(Item item)
     {
         this.item = item;
-
-        if(item == null)
-        {
-            Enable(false);
-
-        }
+        UpdateText();
+        Enable(!(item == null));
     }
 
     public void UpdateText()
@@ -58,15 +59,7 @@ public class ItemSlot : MonoBehaviour
 
     public void Enable(bool value)
     {
-        active = value;
-
-        Color alpha = value ? Color.white : Color.clear;
-        Image.color = Color.clear;
-
-    }
-
-    private void Visible(bool value)
-    {
-        
+        Image.enabled = value;
+        text.enabled = value;
     }
 }

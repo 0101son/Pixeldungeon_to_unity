@@ -70,6 +70,8 @@ MonoBehaviour:
   tomato: {fileID: 21300000, guid: 07485a885ad8262408fd2412fe88183f, type: 3}
   ration: {fileID: 21300000, guid: 0966e5cf7b715a9409a48cb57c2ed79d, type: 3}
   sword: {fileID: 2242210235191273320, guid: 25a52c608b2c7fe44aa77c9748062acf, type: 3}
+  TileParent: {fileID: 1837382264464034522, guid: f5d274f85a7cd30489e39029e8eb1809, type: 3}
+  TilePrefab: {fileID: 1837382264464034522, guid: f5d274f85a7cd30489e39029e8eb1809, type: 3}
 --- !u!114 &-2064629050437427071
 MonoBehaviour:
   m_ObjectHideFlags: 0

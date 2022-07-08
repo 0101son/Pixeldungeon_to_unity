@@ -9,6 +9,7 @@ public class SpriteManager : MonoBehaviour
     public GameObject CharPrefab;
     private readonly string[] names = {"Hero","Enemy"};
 
+
     public CharSprite GetNew()
     {
         GameObject newChar = Instantiate(CharPrefab);

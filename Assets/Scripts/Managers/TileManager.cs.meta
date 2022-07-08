@@ -3,7 +3,12 @@ guid: 3d0fc2508d82ee04997798e5ce478539
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tomato: {instanceID: 0}
+  - ration: {instanceID: 0}
+  - sword: {instanceID: 0}
+  - TileParent: {fileID: 1837382264464034522, guid: f5d274f85a7cd30489e39029e8eb1809, type: 3}
+  - TilePrefab: {fileID: 1837382264464034522, guid: f5d274f85a7cd30489e39029e8eb1809, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

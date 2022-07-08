@@ -80,18 +80,22 @@ public class TileManager : MonoBehaviour
         gridSize = size;
         tileGrid = new GameObject[size.x, size.y];
         itemGrid = new GameObject[size.x, size.y];
+
+        GameObject TileGridParent = new GameObject("TileGrid");
+        GameObject ItemGridParent = new GameObject("ItemGrid");
+
         for (int i = 0; i < gridSize.y; i++)
         {
             for (int j = 0; j < gridSize.x; j++)
             {
                 GameObject temp = new GameObject("Tile[" + j + "," + i + "]");
-
+                temp.transform.parent = TileGridParent.transform;
                 temp.transform.position = new Vector3(j, i, TERRAN_Z_POSITION);
                 temp.AddComponent<SpriteRenderer>();
                 tileGrid[j, i] = temp;
 
                 GameObject ItemTemp = new GameObject("Item[" + j + "," + i + "]");
-
+                ItemTemp.transform.parent = ItemGridParent.transform;
                 ItemTemp.transform.position = new Vector3(j, i, ITEM_Z_POSITION);
                 ItemTemp.AddComponent<SpriteRenderer>();
                 SpriteRenderer tempRenderer = ItemTemp.GetComponent<SpriteRenderer>();

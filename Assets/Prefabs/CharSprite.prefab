@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -4306672715931522682}
   - component: {fileID: 8960277695356137964}
   - component: {fileID: 2042938177171613589}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CharSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   focus: 0
   visible: 0
+  HP: 0
+  HT: 0
 --- !u!212 &8960277695356137964
 SpriteRenderer:
   m_ObjectHideFlags: 0
