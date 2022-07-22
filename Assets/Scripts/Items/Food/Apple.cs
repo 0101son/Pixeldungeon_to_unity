@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tomato : Food
+public class Apple : Food
 {
-    public Tomato()
+    public Apple()
     {
-        stackable = true;
+        texture = "apple";
         heal = 1;
     }
 }

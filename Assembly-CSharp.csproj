@@ -86,7 +86,7 @@
     <Compile Include="Assets\Scripts\Managers\GameScene.cs" />
     <Compile Include="Assets\Scripts\Levels\ShadowCaster.cs" />
     <Compile Include="Assets\Scripts\Managers\SpriteManager.cs" />
-    <Compile Include="Assets\Scripts\Items\Food\Tomato.cs" />
+    <Compile Include="Assets\Scripts\Items\Food\Apple.cs" />
     <Compile Include="Assets\Scripts\Actors\Character\Belongings.cs" />
     <Compile Include="Assets\Scripts\Items\Food\Ration.cs" />
     <Compile Include="Assets\Scripts\Display\SpriteClip\ActionClip\AttackClip.cs" />
@@ -98,6 +98,8 @@
     <Compile Include="Assets\Scripts\ItemSlot.cs" />
     <Compile Include="Assets\Scripts\Levels\Painter.cs" />
     <Compile Include="Assets\Scripts\Levels\Utils\Symmetric Shadowcasting\Tile.cs" />
+    <Compile Include="Assets\Scripts\Load.cs" />
+    <Compile Include="Assets\Scripts\InventoryUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

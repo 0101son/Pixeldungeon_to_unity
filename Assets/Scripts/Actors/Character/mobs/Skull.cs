@@ -20,7 +20,7 @@ public class Skull : Mob
     public override void Die()
     {
         if(Random.Range(0,2) == 0)
-            Dungeon.level.Drop(new Tomato(), position);
+            Dungeon.level.Drop(new Apple(), position);
         else
             Dungeon.level.Drop(new Weapon(), position);
         base.Die();

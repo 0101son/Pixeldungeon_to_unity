@@ -7,7 +7,7 @@ public class Item
 	protected static readonly int TIME_TO_PICK_UP = 10;
 	protected static readonly int TIME_TO_DROP = 10;
 
-	public Sprite sprite = null;
+	public string texture = null;
 
 	public bool stackable = false;
 	public int quantity = 1;
@@ -40,7 +40,7 @@ public class Item
 		Item copy = new Item
 		{
 			quantity = quantity
-			, sprite = sprite
+			, texture = texture
 			, stackable = stackable
         };
         return copy;
@@ -123,6 +123,10 @@ public class Item
 		return false;
     }
 
+	public string Sprite()
+    {
+		return texture;
+    }
 	public override string ToString()
 	{
 		return GetType() + " * " + quantity;

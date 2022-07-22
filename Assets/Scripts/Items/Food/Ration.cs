@@ -6,7 +6,7 @@ public class Ration : Food
 {
     public Ration()
     {
-        stackable = false;
+        texture = "bread_ration";
         heal = 3;
     }
 }

@@ -8,6 +8,12 @@ public class Food : Item
 
     public int heal;
 
+    public Food()
+    {
+        stackable = true;
+        texture = "bread_ration";
+    }
+
     public void Eat(Hero hero)
     {
         Detach(hero);

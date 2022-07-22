@@ -11,6 +11,7 @@ public class Weapon : Item
     public Weapon()
     {
         stackable = false;
+        texture = "long_sword1";
     }
 
     public bool DoEquip(Hero hero)

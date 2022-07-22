@@ -5,9 +5,6 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public Sprite[] sprites;
-    public Sprite tomato;
-    public Sprite ration;
-    public Sprite sword;
 
     private readonly int TERRAN_Z_POSITION = 0;
     private readonly int ITEM_Z_POSITION = -1; 
@@ -45,12 +42,10 @@ public class TileManager : MonoBehaviour
                         tempTile.color = new Color(1f, 1f, 1f, 0);
                     else
                     {
-                        if (loot[loot.Count-1] is Ration)
-                            tempTile.sprite = ration;
-                        if (loot[loot.Count-1] is Tomato)
-                            tempTile.sprite = tomato;
-                        if (loot[loot.Count - 1] is Weapon)
-                            tempTile.sprite = sword;
+                        Debug.Log(loot[loot.Count - 1].texture);
+                        Texture2D texture = Load.Get(loot[loot.Count - 1].texture);
+                        Rect rect = new Rect(0, 0, texture.width, texture.height);
+                        tempTile.sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
                         tempTile.color = new Color(1f, 1f, 1f, 1);
                     }
@@ -101,6 +96,8 @@ public class TileManager : MonoBehaviour
             }
         }
         gridSet = true;
+
+        Load.LoadTexture("Sprites");
     }
 
     private void DestroyGrid()

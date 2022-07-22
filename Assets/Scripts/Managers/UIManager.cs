@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
                 belonging.sprite = ration;
             }
 
-            if (backpack is Tomato)
+            if (backpack is Apple)
             {
                 belonging.sprite = tomato;
             }
