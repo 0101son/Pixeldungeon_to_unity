@@ -10,12 +10,19 @@ public class ItemSlot : MonoBehaviour
     public Image Image;
     private Item item;
     private Text text;
+    private int slotID;
 
     // Start is called before the first frame update
+
     void Awake()
     {
         Image = GetComponent<Image>();
 
+    }
+
+    public  ItemSlot(int slotID)
+    {
+        this.slotID = slotID;
     }
 
     public void Clear()
@@ -65,7 +72,12 @@ public class ItemSlot : MonoBehaviour
 
     }
 
-    private void Visible(bool value)
+    public void LeftClick()
+    {
+
+    }
+
+    public void RightClick()
     {
         
     }

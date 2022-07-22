@@ -1,10 +1,10 @@
-﻿using UnityEditor.Experimental.SceneManagement;
+﻿
 
 namespace Gpm.AssetManagement.AssetFind
 {
     public class PrefabStageRoot
     {
-        public PrefabStageRoot(PrefabStage prefab)
+        public PrefabStageRoot(UnityEditor.SceneManagement.PrefabStage prefab)
         {
             this.prefab = prefab;
 #if UNITY_2020_1_OR_NEWER
@@ -17,7 +17,7 @@ namespace Gpm.AssetManagement.AssetFind
             PrefabStageRootManager.changePrefabRoot += ChangePrefabRoot;
         }
 
-        public void ReOpen(PrefabStage prefab)
+        public void ReOpen(UnityEditor.SceneManagement.PrefabStage prefab)
         {
             this.prefab = prefab;
             this.handle = prefab.scene.handle;
@@ -28,7 +28,7 @@ namespace Gpm.AssetManagement.AssetFind
             removed = true;
         }
 
-        public PrefabStage prefab;
+        public UnityEditor.SceneManagement.PrefabStage prefab;
         public string path;
         public int handle;
         private bool removed = false;

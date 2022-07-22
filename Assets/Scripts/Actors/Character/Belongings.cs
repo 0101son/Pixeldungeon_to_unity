@@ -6,6 +6,16 @@ public class Belongings
 {
     private Char owner;
 
+
+    public class Backpack
+    {
+        public char owner;
+
+        public List<Item> Items = new List<Item>();
+
+        public int capacity = 20;
+    }
+
     public Item backpack;
 
 
@@ -18,4 +28,5 @@ public class Belongings
     }
 
     public Weapon weapon = null;
+
 }

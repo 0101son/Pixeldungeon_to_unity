@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor.Experimental.SceneManagement;
+
 
 namespace Gpm.AssetManagement.AssetFind
 {
@@ -14,15 +14,15 @@ namespace Gpm.AssetManagement.AssetFind
         [InitializeOnLoadMethod]
         private static void Initialize()
         {
-            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            var prefabStage = UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
             if (prefabStage != null)
             {
                 activePrefabStage = new PrefabStageRoot(prefabStage);
             }
 
-            PrefabStage.prefabStageOpened += prefabStageOpened;
-            PrefabStage.prefabStageClosing += prefabStageClosing;
-            PrefabStage.prefabSaved += prefabSaved;
+            UnityEditor.SceneManagement.PrefabStage.prefabStageOpened += prefabStageOpened;
+            UnityEditor.SceneManagement.PrefabStage.prefabStageClosing += prefabStageClosing;
+            UnityEditor.SceneManagement.PrefabStage.prefabSaved += prefabSaved;
         }
 
         public static PrefabStageRoot GetCurrentPrefabStageRoot()
@@ -30,7 +30,7 @@ namespace Gpm.AssetManagement.AssetFind
             return activePrefabStage;
         }
 
-        private static void prefabStageOpened(PrefabStage prefabStage)
+        private static void prefabStageOpened(UnityEditor.SceneManagement.PrefabStage prefabStage)
         {
             if (activePrefabStage != null)
             {
@@ -49,7 +49,7 @@ namespace Gpm.AssetManagement.AssetFind
             }
         }
 
-        private static void prefabStageClosing(PrefabStage prefabStage)
+        private static void prefabStageClosing(UnityEditor.SceneManagement.PrefabStage prefabStage)
         {
             if (changePrefabRoot != null)
             {

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gpm_common", "gpm_common.csproj", "{E593E0C1-16B9-1474-6EAD-5BC48F6C557E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gpm_ui_sample", "gpm_ui_sample.csproj", "{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{DD8BB905-17D1-AAA6-C8A2-213488C298D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gpm_ui", "gpm_ui.csproj", "{808EF8B4-197A-2346-E5B4-0A70293E42D5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gpm_ui_sample", "gpm_ui_sample.csproj", "{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gpm_cachestorage", "gpm_cachestorage.csproj", "{DECFE534-60E4-C3CE-5017-22A1FF4257B0}"
 EndProject
@@ -27,6 +27,10 @@ Global
 		{E593E0C1-16B9-1474-6EAD-5BC48F6C557E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E593E0C1-16B9-1474-6EAD-5BC48F6C557E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E593E0C1-16B9-1474-6EAD-5BC48F6C557E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD8BB905-17D1-AAA6-C8A2-213488C298D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD8BB905-17D1-AAA6-C8A2-213488C298D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD8BB905-17D1-AAA6-C8A2-213488C298D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,10 +39,6 @@ Global
 		{808EF8B4-197A-2346-E5B4-0A70293E42D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{808EF8B4-197A-2346-E5B4-0A70293E42D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{808EF8B4-197A-2346-E5B4-0A70293E42D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{141634C6-50EC-EA5C-D72B-CCCB5AFD4BBD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DECFE534-60E4-C3CE-5017-22A1FF4257B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DECFE534-60E4-C3CE-5017-22A1FF4257B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DECFE534-60E4-C3CE-5017-22A1FF4257B0}.Release|Any CPU.ActiveCfg = Release|Any CPU

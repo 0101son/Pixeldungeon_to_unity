@@ -56,7 +56,7 @@ namespace Gpm.AssetManagement.AssetFind.Ui.PropertyTreeView.TreeItem
                 long localId;
                 if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(asset, out guid, out localId) == true)
                 {
-                    var stage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+                    var stage = UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
                     if (stage != null)
                     {
                         if (stage.scene.isDirty == true)
