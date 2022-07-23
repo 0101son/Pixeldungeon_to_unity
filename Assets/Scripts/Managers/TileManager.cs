@@ -43,10 +43,7 @@ public class TileManager : MonoBehaviour
                     else
                     {
                         Debug.Log(loot[loot.Count - 1].texture);
-                        Texture2D texture = Load.Get(loot[loot.Count - 1].texture);
-                        Rect rect = new Rect(0, 0, texture.width, texture.height);
-                        tempTile.sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
-
+                        tempTile.sprite = Load.Get(loot[loot.Count - 1].texture);
                         tempTile.color = new Color(1f, 1f, 1f, 1);
                     }
                         
