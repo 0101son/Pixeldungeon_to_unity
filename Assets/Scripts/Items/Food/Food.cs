@@ -16,8 +16,8 @@ public class Food : Item
 
     public void Eat(Hero hero)
     {
-        Detach(hero);
-        UIManager.instance.UpdateUI();
+        Detach(hero.belongings);
+        InventoryPane.instance.UpdateInventory();
         hero.Heal(heal);
         hero.Spend(TIME_TO_EAT);
     }

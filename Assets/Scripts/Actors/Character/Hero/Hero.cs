@@ -59,8 +59,8 @@ public class Hero : Char
     {
         if (belongings.backpack != null)
         {
-            belongings.backpack.DoDrop(this);
-            UIManager.instance.UpdateUI();
+            belongings.backpack.items[0].DoDrop(this);
+            InventoryPane.instance.UpdateInventory();
             gameScript.endAnimationQueue = true;
             return true;
         }
@@ -74,10 +74,10 @@ public class Hero : Char
 
     public bool ActEquip()
     {
-        if (belongings.backpack is Weapon weapon)
+        if (belongings.backpack.items[0] is Weapon weapon)
         {
             weapon.DoEquip(this);
-            UIManager.instance.UpdateUI();
+            InventoryPane.instance.UpdateInventory();
             gameScript.endAnimationQueue = true;
             return true;
         }
@@ -92,7 +92,7 @@ public class Hero : Char
         if (belongings.weapon is Weapon weapon)
         {
             weapon.DoUnequip(this);
-            UIManager.instance.UpdateUI();
+            InventoryPane.instance.UpdateInventory();
             gameScript.endAnimationQueue = true;
             return true;
         }
@@ -111,7 +111,7 @@ public class Hero : Char
             Item item = loot[count - 1];
             if (item.DoPickUp(this))
             {
-                UIManager.instance.UpdateUI();
+                InventoryPane.instance.UpdateInventory();
                 loot.RemoveAt(count - 1);
                 gameScript.endAnimationQueue = true;
                 return true;
@@ -126,7 +126,7 @@ public class Hero : Char
     {
         if (HP == HT || belongings.backpack == null) return false;
 
-        if(belongings.backpack is Food food)
+        if(belongings.backpack.items[0] is Food food)
         {
             food.Eat(this);
         }

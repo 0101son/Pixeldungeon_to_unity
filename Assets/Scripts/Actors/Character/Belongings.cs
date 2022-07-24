@@ -9,24 +9,44 @@ public class Belongings
 
     public class Backpack
     {
-        public char owner;
 
-        public List<Item> Items = new List<Item>();
+        public Char owner;
 
-        public int capacity = 20;
+        public List<Item> items = new List<Item>();
+
+        public int capacity = 30;
+    
+        public bool CanHold(Item item)
+        {
+            if(items.Contains(item) || items.Count < capacity)
+            {
+                return true;
+            } else if (item.stackable)
+            {
+                foreach(Item i in items)
+                {
+                    if (item.IsSimilar(i))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 
-    public Item backpack;
+    public Backpack backpack;
 
 
     public Belongings(Char owner)
     {
         this.owner = owner;
 
-        backpack = null;
-        weapon = null;
+        backpack = new Backpack();
+        backpack.owner = owner;
     }
 
     public Weapon weapon = null;
+    
 
 }

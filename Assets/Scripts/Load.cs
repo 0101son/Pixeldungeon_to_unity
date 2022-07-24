@@ -17,7 +17,7 @@ public class Load : MonoBehaviour
             Texture2D t1 = (Texture2D)t0[i];
             Rect rect = new Rect(0, 0, t1.width, t1.height);
             spriteCache[t1.name] = Sprite.Create(t1, rect, new Vector2(0.5f, 0.5f), 32);
-            Debug.Log(t1.name);
+            //Debug.Log(t1.name);
         }
 
         

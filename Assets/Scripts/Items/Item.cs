@@ -14,7 +14,7 @@ public class Item
 	
 	public bool DoPickUp(Hero hero)
 	{
-		if (Collect(hero))
+		if (Collect(hero.belongings))
 		{
 			hero.Spend(TIME_TO_PICK_UP);
 			return true;
@@ -32,7 +32,7 @@ public class Item
     {
 		hero.Spend(TIME_TO_DROP);
 		Vector2Int position = hero.position;
-		Dungeon.level.Drop(DetachAll(hero), position);
+		Dungeon.level.Drop(DetachAll(hero.belongings), position);
     }
 
 	public Item Copy()
@@ -63,17 +63,14 @@ public class Item
         }
     }
 
-	public Item Detach(Hero hero)
+	public Item Detach(Belongings container)
 	{
 		if (quantity <= 0)
 		{
 			return null;
-		}
-
-		if (quantity == 1)
+		} else if (quantity == 1)
         {
-			
-			return DetachAll(hero);
+			return DetachAll(container);
         }
         else
         {
@@ -81,46 +78,64 @@ public class Item
 		}
     }
 
-	public Item DetachAll(Hero hero)
+	public Item DetachAll(Belongings container)
     {
-		if(hero.belongings.backpack == this)
+		foreach(Item item in container.backpack.items)
+		if(item == this)
         {
-			hero.belongings.backpack = null;
+			container.backpack.items.Remove(this);
 			return this;
         }
 
 		return this;
     }
 
-	public bool Collect(Hero hero)
+	public Item Merge(Item other)
     {
+        if (IsSimilar(other))
+        {
+			quantity += other.quantity;
+			other.quantity = 0;
+        }
+		return this;
+    }
+
+	public bool Collect(Belongings container)
+    {
+		Debug.Log("Hero Collect " + this);
+
 		if(quantity <= 0)
         {
 			return true;
         }
 
-		if(hero.belongings.backpack == this)
+		List<Item> items = container.backpack.items;
+
+		if(items.Contains(this))
         {
 			return true;
         }
 
-		if(hero.belongings.backpack == null)
+        if (!container.backpack.CanHold(this))
         {
-			hero.belongings.backpack = this;
-
-			return true;
+			return false;
         }
 
 		if (stackable)
 		{
-			if (IsSimilar(hero.belongings.backpack))
-			{
-				hero.belongings.backpack.quantity += quantity;
-				return true;
+			foreach(Item item in items)
+            {
+				if (IsSimilar(item))
+				{
+					item.Merge(this);
+					return true;
+				}
 			}
 		}
 
-		return false;
+		items.Add(this);
+
+		return true;
     }
 
 	public string Sprite()

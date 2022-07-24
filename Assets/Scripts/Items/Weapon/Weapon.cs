@@ -16,20 +16,20 @@ public class Weapon : Item
 
     public bool DoEquip(Hero hero)
     {
-        DetachAll(hero);
+        DetachAll(hero.belongings);
 
         if (hero.belongings.weapon == null || hero.belongings.weapon.DoUnequip(hero))
         {
 
             hero.belongings.weapon = this;
-            UIManager.instance.UpdateUI();
+            InventoryPane.instance.UpdateInventory();
 
             hero.Spend(TIME_TO_EQUIP);
             return true;
         }
         else
         {
-            Collect(hero);
+            Collect(hero.belongings);
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class Weapon : Item
     {
         hero.Spend(TIME_TO_EQUIP);
 
-        if (!Collect(hero))
+        if (!Collect(hero.belongings))
             Dungeon.level.Drop(this, hero.position);
 
         hero.belongings.weapon = null;
