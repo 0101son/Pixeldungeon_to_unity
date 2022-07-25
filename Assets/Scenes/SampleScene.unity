@@ -1192,11 +1192,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_RootOrder
@@ -1204,19 +1204,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1256,11 +1256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3165858415208574292, guid: fcefa4bdf1a57664cb922e09d1829cd7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1734,7 +1734,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 'Inventory
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

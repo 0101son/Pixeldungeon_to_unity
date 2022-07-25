@@ -142,6 +142,12 @@ public class Item
     {
 		return texture;
     }
+
+	public bool IsEquipped( Char character )
+    {
+		return false;
+    }
+
 	public override string ToString()
 	{
 		return GetType() + " * " + quantity;

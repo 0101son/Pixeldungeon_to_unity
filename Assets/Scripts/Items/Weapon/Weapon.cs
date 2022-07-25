@@ -14,6 +14,18 @@ public class Weapon : Item
         texture = "long_sword1";
     }
 
+    public new bool IsEquipped( Char character )
+    {
+        if(character is Hero hero)
+        {
+           return hero.belongings.Weapon() == this;
+        }
+        else
+        {
+            return false;
+        }
+    } 
+
     public bool DoEquip(Hero hero)
     {
         DetachAll(hero.belongings);

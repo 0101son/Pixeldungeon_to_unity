@@ -21,7 +21,14 @@ public class ItemSlot : MonoBehaviour
     {
         itemImage = transform.GetChild(0).GetComponent<Image>();
         text = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        Debug.Log("text: " + text);
         bg = GetComponent<Image>();
+    }
+
+    public ItemSlot(Item item)
+    {
+        Debug.Log("ItemSlot: executing self");
+        Item(item);
     }
 
     public void Clear()
@@ -38,7 +45,6 @@ public class ItemSlot : MonoBehaviour
         {
             if(item != null)
             {
-                itemImage.enabled = true;
                 itemImage.sprite = Load.Get(item.texture);
             }
             UpdateText();
@@ -49,15 +55,13 @@ public class ItemSlot : MonoBehaviour
 
         if(item == null)
         {
-            Enable(false);
-            itemImage.enabled = false;
+            itemImage.sprite = null;
 
             UpdateText();
         }
         else
         {
             Enable(true);
-            itemImage.enabled = true;
 
             itemImage.sprite = Load.Get(item.texture);
             UpdateText();
@@ -66,19 +70,11 @@ public class ItemSlot : MonoBehaviour
 
     public void UpdateText()
     {
-        if(item == null)
+        Debug.Log("updating... text: " + text);
+        if(item == null || item.stackable != true || item.quantity == 1)
         {
-            text.enabled = false;
+            text.text = " ";
             return;
-        }
-        else
-        {
-            text.enabled = true;
-        }
-
-        if(item.stackable != true || item.quantity == 1)
-        {
-            text.text = "";
         }
         else
         {

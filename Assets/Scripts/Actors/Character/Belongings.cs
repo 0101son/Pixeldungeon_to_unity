@@ -37,6 +37,10 @@ public class Belongings
 
     public Backpack backpack;
 
+    public Weapon Weapon()
+    {
+        return weapon;
+    }
 
     public Belongings(Char owner)
     {

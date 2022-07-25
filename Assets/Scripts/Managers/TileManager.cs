@@ -14,6 +14,9 @@ public class TileManager : MonoBehaviour
     public GameObject[,] tileGrid;
     public GameObject[,] itemGrid;
 
+    public GameObject gridParent;
+    public GameObject itemParent;
+    public GameObject tileParent;
     //새로고침
     public void Refresh(in int[,] map, in bool[,] visited, in bool[,] heroFOV)
     {
@@ -69,6 +72,13 @@ public class TileManager : MonoBehaviour
 
             DestroyGrid();
 
+        gridParent = new GameObject("Grid");
+        itemParent = new GameObject("ItemGrid");
+        itemParent.transform.parent = gridParent.transform;
+        tileParent = new GameObject("TileGrid");
+        tileParent.transform.parent = gridParent.transform;
+
+
         gridSize = size;
         tileGrid = new GameObject[size.x, size.y];
         itemGrid = new GameObject[size.x, size.y];
@@ -77,13 +87,13 @@ public class TileManager : MonoBehaviour
             for (int j = 0; j < gridSize.x; j++)
             {
                 GameObject temp = new GameObject("Tile[" + j + "," + i + "]");
-
+                temp.transform.parent = tileParent.transform;
                 temp.transform.position = new Vector3(j, i, TERRAN_Z_POSITION);
                 temp.AddComponent<SpriteRenderer>();
                 tileGrid[j, i] = temp;
 
                 GameObject ItemTemp = new GameObject("Item[" + j + "," + i + "]");
-
+                ItemTemp.transform.parent = itemParent.transform;
                 ItemTemp.transform.position = new Vector3(j, i, ITEM_Z_POSITION);
                 ItemTemp.AddComponent<SpriteRenderer>();
                 SpriteRenderer tempRenderer = ItemTemp.GetComponent<SpriteRenderer>();
@@ -99,6 +109,10 @@ public class TileManager : MonoBehaviour
 
     private void DestroyGrid()
     {
+        Destroy(gridParent);
+        Destroy(tileParent);
+        Destroy(itemParent);
+
         for (int i = 0; i < gridSize.y; i++)
         {
             for (int j = 0; j < gridSize.x; j++)
