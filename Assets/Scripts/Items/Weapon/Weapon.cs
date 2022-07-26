@@ -13,7 +13,14 @@ public class Weapon : Item
         stackable = false;
         texture = "long_sword1";
     }
-
+    public new void DoDrop(Char character)
+    {
+        Debug.Log("Weapon.dodrop");
+        if(!IsEquipped(character) || DoUnequip(character, false))
+        {
+            base.DoDrop(character);
+        }
+    }
     public new bool IsEquipped( Char character )
     {
         if(character is Hero hero)
@@ -26,11 +33,13 @@ public class Weapon : Item
         }
     } 
 
+    
+
     public bool DoEquip(Hero hero)
     {
         DetachAll(hero.belongings);
 
-        if (hero.belongings.weapon == null || hero.belongings.weapon.DoUnequip(hero))
+        if (hero.belongings.weapon == null || hero.belongings.weapon.DoUnequip(hero,true))
         {
 
             hero.belongings.weapon = this;
@@ -46,15 +55,27 @@ public class Weapon : Item
         }
     }
 
-    public bool DoUnequip(Hero hero)
+    public bool DoUnequip(Char character, bool collect)
     {
-        hero.Spend(TIME_TO_EQUIP);
+        //EquipableItem
+        character.Spend(TIME_TO_EQUIP);
 
-        if (!Collect(hero.belongings))
-            Dungeon.level.Drop(this, hero.position);
+        if(character is Hero hero)
+        {
+            if (!Collect(hero.belongings) || !collect)
+            {
 
-        hero.belongings.weapon = null;
-        return true;
+                if (collect) Dungeon.level.Drop(this, hero.position);
+            }
+
+            //KindOfWeapon
+            hero.belongings.weapon = null;
+
+
+            return true;
+        }
+
+        return false;
     }
     
 }

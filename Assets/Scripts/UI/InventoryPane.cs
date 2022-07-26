@@ -14,12 +14,8 @@ public class InventoryPane : MonoBehaviour
     public List<InventorySlot> equipped;
     public List<InventorySlot> bagItems;
 
-    private bool active = true;
+    private bool active;
 
-    public InventoryPane()
-    {
-        
-    }
 
     private void Awake()
     {
@@ -28,17 +24,15 @@ public class InventoryPane : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        Debug.Log("Awake");
         equipPane = transform.GetChild(0);
         bagPane = transform.GetChild(1);
         CreateChildren();
-        Active();
+        Active(false);
     }
 
     public void CreateChildren()
     {
         Object slotPrefab = Resources.Load("Prefabs/ItemSlot");
-        Debug.Log("CreateChildren");
 
         equipped = new List<InventorySlot>();
         for(int i=0; i<4; i++)
@@ -82,39 +76,45 @@ public class InventoryPane : MonoBehaviour
         }
     }
 
-    public void Active()
+    public void Active(bool value)
     {
-        active = !active;
-        
-        GetComponent<Image>().enabled = active;
-        equipPane.GetComponent<Image>().enabled = active;
-        bagPane.GetComponent<Image>().enabled = active;
-        foreach(InventorySlot slot in equipped)
+        active = value;
+
+        GetComponent<Image>().enabled = value;
+        equipPane.GetComponent<Image>().enabled = value;
+        bagPane.GetComponent<Image>().enabled = value;
+        foreach (InventorySlot slot in equipped)
         {
-            slot.Show(active);
+            slot.Active(value);
         }
 
         foreach (InventorySlot slot in bagItems)
         {
-            slot.Show(active);
+            slot.Active(value);
         }
+    }
+
+    public void Active()
+    {
+        active = !active;
+        Active(active);
+        
     }
 
     private class InventoryPaneSlot : InventorySlot, IPointerClickHandler
     {
-        public InventoryPaneSlot(Item item) : base(item)
-        {
-        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (item == null) return;
+
             if(eventData.button == PointerEventData.InputButton.Left)
             {
                 if (item is Weapon weapon)
                 {
                     if (weapon.IsEquipped(Dungeon.hero))
                     {
-                        weapon.DoUnequip(Dungeon.hero);
+                        weapon.DoUnequip(Dungeon.hero, true);
                     }
                     else
                     {
@@ -129,10 +129,21 @@ public class InventoryPane : MonoBehaviour
             }
             else if (eventData.button == PointerEventData.InputButton.Right)
             {
-                item.DoDrop(Dungeon.hero);
+                if(item is Weapon weapon && weapon.IsEquipped(Dungeon.hero))
+                {
+                    Debug.Log("dropping weapon from hand");
+                    weapon.DoDrop(Dungeon.hero);
+                }
+                else
+                {
+                    item.DoDrop(Dungeon.hero);
+                }
+                
             }
 
+            instance.UpdateInventory();
             GameScene.instance.endAnimationQueue = true;
+            GameScene.instance.onControll = false;
         }
 
     }

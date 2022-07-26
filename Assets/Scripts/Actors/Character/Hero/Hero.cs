@@ -87,21 +87,6 @@ public class Hero : Char
         }
     }
 
-    public bool ActUnequip()
-    {
-        if (belongings.weapon is Weapon weapon)
-        {
-            weapon.DoUnequip(this);
-            InventoryPane.instance.UpdateInventory();
-            gameScript.endAnimationQueue = true;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public bool ActPickUp()
     {
         List<Item> loot = Dungeon.level.item[position.x, position.y];
@@ -120,17 +105,6 @@ public class Hero : Char
 
         return false;
 
-    }
-
-    public bool ActConsume()
-    {
-        if (HP == HT || belongings.backpack == null) return false;
-
-        if(belongings.backpack.items[0] is Food food)
-        {
-            food.Eat(this);
-        }
-        return true;
     }
 
     public override void Die()

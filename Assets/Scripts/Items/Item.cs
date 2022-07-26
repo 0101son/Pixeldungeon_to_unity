@@ -28,11 +28,14 @@ public class Item
 		return GetType() == item.GetType();
     }
 
-	public void DoDrop(Hero hero)
+	public void DoDrop(Char charcater)
     {
-		hero.Spend(TIME_TO_DROP);
-		Vector2Int position = hero.position;
-		Dungeon.level.Drop(DetachAll(hero.belongings), position);
+		if(charcater is Hero hero)
+        {
+			hero.Spend(TIME_TO_DROP);
+			Vector2Int position = hero.position;
+			Dungeon.level.Drop(DetachAll(hero.belongings), position);
+		}
     }
 
 	public Item Copy()
@@ -102,7 +105,6 @@ public class Item
 
 	public bool Collect(Belongings container)
     {
-		Debug.Log("Hero Collect " + this);
 
 		if(quantity <= 0)
         {
