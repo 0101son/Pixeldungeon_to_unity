@@ -106,6 +106,7 @@ public class InventoryPane : MonoBehaviour
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            Debug.Log("I: pressed");
             if (item == null) return;
 
             if(eventData.button == PointerEventData.InputButton.Left)
@@ -118,11 +119,10 @@ public class InventoryPane : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("I: equip");
                         weapon.DoEquip(Dungeon.hero);
                     }
-                }
-
-                if (item is Food food)
+                }else if (item is Food food)
                 {
                     food.Eat(Dungeon.hero);
                 }

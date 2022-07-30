@@ -8,7 +8,7 @@ public class GameScene : MonoBehaviour
     public TileManager tileScript;
     public Canvas UI;
     public bool onControll = false;
-    public readonly float moveTime = 0.2f;
+    public readonly float moveTime = 0.1f;
     public bool spriteActing = false;
     public bool endAnimationQueue;
     public bool IsHeroAlive = true;
