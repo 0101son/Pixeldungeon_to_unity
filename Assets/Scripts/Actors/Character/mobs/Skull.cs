@@ -6,6 +6,8 @@ public class Skull : Mob
 {
     public Skull() : base()
     {
+        texture = "alligator";
+
         charID = 1;
 
         HP = HT = 2;

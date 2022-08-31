@@ -9,15 +9,7 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance == null)
-
-            instance = this;
-
-        else if (instance != this)
-
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
     public IEnumerator FocusOn(CharSprite who, float length)

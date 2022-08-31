@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public abstract class Char : Actor
 {
-    
+
     // StaticSetup
 
-    public static SpriteManager spriteScript;
-    public static GameScene gameScript;
-
-
+    public string texture = "ghost_crab";
 
     public Vector2Int position = Vector2Int.zero;
 
@@ -29,14 +26,6 @@ public abstract class Char : Actor
 
     public int charID;
 
-    public static void StaticSetup()
-    {
-        //Debug.Log("Character StaticSetup");
-        gameScript = GameScene.instance;
-        spriteScript = GameScene.instance.GetComponent<SpriteManager>();
-        //Debug.Log("Character StaticSetup Sucess");
-    }
-
     public static void UpdateFOV()
     {
         //Debug.Log("CharSprites to play: " + All().Count);
@@ -46,16 +35,6 @@ public abstract class Char : Actor
         }
     }
 
-    public virtual void Initiate(Vector2Int initPosition)
-    {
-        //Debug.Log("Init");
-        Add(this);
-        position = initPosition;
-        sprite = spriteScript.GetNew();
-        sprite.Link(this);
-        //Debug.Log("IsSpriteNullAfterInit??? :" + (sprite == null));
-        Dungeon.level.blocking[position.x, position.y] = true;
-    }
 
     public virtual bool MoveToward(Vector2Int dir)
     {
@@ -65,7 +44,7 @@ public abstract class Char : Actor
     public virtual bool TryMoveTo(Vector2Int target)
     {
 
-        if (!Dungeon.level.solid[target.x, target.y] && !Dungeon.level.blocking[target.x, target.y])
+        if (!Dungeon.level.losBlocking[target.x, target.y] && !Dungeon.level.blocking[target.x, target.y])
         {
             MoveTo(target);
 
@@ -73,6 +52,31 @@ public abstract class Char : Actor
         }
         else
             return false;
+    }
+
+    protected static readonly string POSX       = "posx";
+    protected static readonly string POSY       = "posy";
+    protected static readonly string TAG_HP     = "HP";
+	protected static readonly string TAG_HT     = "HT";
+
+    public override void StoreInBundle(Bundle bundle)
+    {
+
+        base.StoreInBundle(bundle);
+
+        bundle.Put(POSX, position.x);
+        bundle.Put(POSY, position.y);
+        bundle.Put(TAG_HP, HP);
+        bundle.Put(TAG_HT, HT);
+    }
+
+    public override void RestoreFromBundle( Bundle bundle )
+    {
+        base.RestoreFromBundle(bundle);
+
+        position = new Vector2Int(bundle.Get<int>(POSX), bundle.Get<int>(POSY));
+        HP = bundle.Get<int>(TAG_HP);
+        HT = bundle.Get<int>(TAG_HT);
     }
 
     public virtual void Attack(Char target)

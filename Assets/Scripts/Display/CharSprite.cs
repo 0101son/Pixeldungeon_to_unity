@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharSprite : MonoBehaviour
 {
     LineRenderer lr;
-
+    public static GameObject CharPrefab = null;
     public static List<CharSprite> sprites = new List<CharSprite>();
 
     readonly int CHAR_Z_LAYER = -10;
@@ -26,6 +26,11 @@ public class CharSprite : MonoBehaviour
     public Char ch;
     public float HP;
     public float HT;
+
+    public static void Clear()
+    {
+        actionQueue = new Queue<ActionClip>();
+    }
 
     public static IEnumerator PlayClipQueue()
     {
@@ -79,34 +84,43 @@ public class CharSprite : MonoBehaviour
         lr.endWidth = .05f;
     }
 
-    public void Initiate()
+    public static CharSprite Link(Char ch)
     {
-        sprites.Add(this);
-        nonActionQueue = new Queue<MovingClip>();
-        actionQueue = new Queue<ActionClip>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+        if (CharPrefab == null)
+        {
+            CharPrefab = GameScene.instance.CharPrefab;
+        }
+        CharSprite newSprite = Instantiate(CharPrefab).GetComponent<CharSprite>();
+        newSprite.ch = ch;
+        newSprite.spriteRenderer = newSprite.GetComponent<SpriteRenderer>();
+        newSprite.spriteRenderer.sprite = Load.Get(ch.texture);
+        sprites.Add(newSprite);
 
-    public void Link(Char ch)
-    {
-        position = ch.position;
-        HP = ch.HP;
-        HT = ch.HT;
-        SetVisible(Dungeon.level.heroFOV[position.x, position.y]);
-        this.ch = ch;
-        ID = ch.charID;
-        ch.sprite = this;
-        Place(ch.position);
-        spriteRenderer.sprite = GameScene.instance.GetComponent<SpriteManager>().sprites[ID];
+        newSprite.nonActionQueue = new Queue<MovingClip>();
+
+
+        newSprite.position = ch.position;
+        newSprite.HP = ch.HP;
+        newSprite.HT = ch.HT;
+        newSprite.SetVisible(Dungeon.level.heroFOV[newSprite.position.x, newSprite.position.y]);
+        newSprite.ID = ch.charID;
+
+
+        ch.sprite = newSprite;
+
+        newSprite.Place(ch.position);
+
         //Debug.Log("CharSprite Linked ID:" + ID + ", position: " + position);
-        if (ID == 0)
-            CameraScript.transform.position = transform.position + Vector3.back;
+        if (newSprite.ID == 0)
+            CameraScript.transform.position = newSprite.transform.position + Vector3.back;
+
+        return CharPrefab.GetComponent<CharSprite>();
     }
 
     public static void SetMoveTime(float time)
     {
         moveTime = time;
-        //Debug.Log(moveTime);
+        Debug.Log("setting movetime");
     }
 
     public void EnqueueClip(SpriteClip clip)
@@ -142,7 +156,7 @@ public class CharSprite : MonoBehaviour
             MovingClip clip = nonActionQueue.Dequeue();
 
             //Debug.Log("ID no." + ID + " Played - " + clip + "i: " + i);
-            TurnTo(clip.from, clip.to);
+            //TurnTo(clip.from, clip.to);
             StartCoroutine(Walk(clip.from, clip.to, lengthPerclip));
             if (visible != clip.visible)
                 StartCoroutine(TurnVisible(clip.visible, lengthPerclip));
@@ -150,6 +164,8 @@ public class CharSprite : MonoBehaviour
         }
 
     }
+
+    
 
     private IEnumerator Walk(Vector2Int from, Vector2Int to, float clipLength)
     {
@@ -175,7 +191,7 @@ public class CharSprite : MonoBehaviour
 
     private void Attack(AttackClip clip, float time)
     {
-        TurnTo(clip.who.position, clip.whom.position);
+        //TurnTo(clip.who.position, clip.whom.position);
         StartCoroutine(Attack(clip.who, clip.whom, clip.damage, time));
     }
 
@@ -284,8 +300,9 @@ public class CharSprite : MonoBehaviour
         SetVisible(visible);
     }
 
-    private void Place(Vector2Int tile)
+    public void Place(Vector2Int tile)
     {
+        position = tile;
         transform.position = new Vector3(tile.x, tile.y, CHAR_Z_LAYER);
     }
 

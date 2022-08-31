@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class RedSkull : Mob
 {
+    
     public RedSkull() : base()
     {
+        texture = "adder";
+
         charID = 2;
 
         HP = HT = 1;

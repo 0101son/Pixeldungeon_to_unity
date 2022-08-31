@@ -1,0 +1,15 @@
+{
+  "seed": 12345678,
+  "hero": {
+    "__typeName": "Hero",
+    "time": 100,
+    "id": 1,
+    "posx": 3,
+    "posy": 8,
+    "HP": 8,
+    "HT": 8,
+    "inventory": []
+  },
+  "depth": 1,
+  "nextid": 10
+}

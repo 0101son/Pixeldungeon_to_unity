@@ -10,6 +10,8 @@ public class Hero : Char
 
     public Hero()
     {
+        texture = "hog";
+
         actPriority = HERO_PRIO;
 
         HP = HT = 8;
@@ -22,7 +24,7 @@ public class Hero : Char
         moveSpeed = 10;
 
     }
-
+    /*
     public override void Initiate(Vector2Int initPosition)
     {
         //Debug.Log(initPosition);
@@ -31,9 +33,34 @@ public class Hero : Char
         visible = true;
         sprite.focus = true;
     }
+    */
+    public override void StoreInBundle(Bundle bundle)
+    {
+        base.StoreInBundle(bundle);
 
+        belongings.StoreInBundle(bundle);
+    }
 
-    public override bool MoveToward(Vector2Int dir)
+    public override void RestoreFromBundle(Bundle bundle)
+    {
+        base.RestoreFromBundle(bundle);
+
+        belongings.RestoreFromBundle(bundle);
+    }
+    public static void Preview(GameInProgress.Info info, Bundle bundle)
+    {
+        //info.level = bundle.getInt(LEVEL);
+        //info.str = bundle.getInt(STRENGTH);
+        //info.exp = bundle.getInt(EXPERIENCE);
+        info.hp = bundle.Get<int>(TAG_HP);
+        info.ht = bundle.Get<int>(TAG_HT);
+        //info.shld = bundle.getInt(Char.TAG_SHLD);
+        //info.heroClass = bundle.getEnum(CLASS, HeroClass.class );
+		//info.subClass = bundle.getEnum(SUBCLASS, HeroSubClass.class );
+		//belongings.Preview(info, bundle);
+	}
+
+public override bool MoveToward(Vector2Int dir)
     {
         return base.MoveToward(dir);
     }
@@ -41,7 +68,7 @@ public class Hero : Char
     public override void MoveTo(Vector2Int target)
     {
 
-        Dungeon.level.UpdateFieldOfView(target);
+        Dungeon.level.UpdateFieldOfView(target,false);
 
         base.MoveTo(target);
 
@@ -50,7 +77,7 @@ public class Hero : Char
     public override bool Act()
     {
         Debug.Log("Player Turn");
-        Dungeon.level.UpdateFieldOfView(position);
+        Dungeon.level.UpdateFieldOfView(position,false);
         gameScript.onControll = true;
         return false;
     }

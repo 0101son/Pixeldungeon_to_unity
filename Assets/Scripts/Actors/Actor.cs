@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Actor
+public abstract class Actor : IBundlable
 {
     private int time;
 
+    private int id = 0;
+
     protected static readonly int HERO_PRIO = 0;
     protected static readonly int MOB_PRIO = -20;
+    private static readonly int DEFAULT = -100;
 
-    protected int actPriority = default;
+    protected int actPriority = DEFAULT;
 
     public abstract bool Act();
 
@@ -23,11 +26,49 @@ public abstract class Actor
         return time;
     }
 
+    private static readonly string TIME    = "time";
+	private static readonly string ID      = "id";
+
+    public virtual void StoreInBundle(Bundle bundle)
+    {
+        bundle.Put(TIME, time);
+        bundle.Put(ID, id);
+    }
+
+    public virtual void RestoreFromBundle(Bundle bundle)
+    {
+        time = bundle.Get<int>(TIME);
+        int incomingID = bundle.Get<int>(ID);
+        if (FindById(incomingID) == null)
+        {
+            id = incomingID;
+        }
+        else
+        {
+            id = nextID++;
+        }
+    }
+
+    public int Id()
+    {
+        if(id > 0)
+        {
+            return id;
+        }
+        else
+        {
+            return (id = nextID++);
+        }
+    }
+
     // **********************
     // *** Static members ***
     // **********************
 
     private static HashSet<Actor> all = new HashSet<Actor>();
+    public static GameScene gameScript;
+    private static Dictionary<int, Actor> ids = new Dictionary<int, Actor>();
+    private static int nextID = 1;
 
     private static int now = 0;
 
@@ -41,6 +82,8 @@ public abstract class Actor
         now = 0;
 
         all.Clear();
+
+        ids.Clear();
     }
 
     public static void Initiate()
@@ -52,6 +95,23 @@ public abstract class Actor
             Add(mob);
         }
         
+    }
+
+    private static readonly string NEXTID = "nextid";
+
+    public static void StoreNextID(Bundle bundle)
+    {
+        bundle.Put(NEXTID, nextID);
+    }
+
+    public static void RestoreNextID(Bundle bundle)
+    {
+        nextID = bundle.Get<int>(NEXTID);
+    }
+
+    public static void ResetNextID()
+    {
+        nextID = 1;
     }
 
     public static void Process()
@@ -112,6 +172,8 @@ public abstract class Actor
             return;
         }
 
+        ids.Add(actor.Id(), actor);
+
         all.Add(actor);
         actor.time += time;
     }
@@ -122,10 +184,27 @@ public abstract class Actor
         {
             Debug.Log("remove sucess");
             all.Remove(actor);
+
+            if(actor.id > 0)
+            {
+                ids.Remove(actor.id);
+            }
         }
         else
         {
             Debug.Log("remove failed");
+        }
+    }
+
+    public static Actor FindById( int id)
+    {
+        if (ids.ContainsKey(id))
+        {
+            return ids[id];
+        }
+        else
+        {
+            return null;
         }
     }
 

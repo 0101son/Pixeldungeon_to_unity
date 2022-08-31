@@ -30,6 +30,14 @@ public class InventoryPane : MonoBehaviour
         Active(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Active();
+        }
+    }
+
     public void CreateChildren()
     {
         Object slotPrefab = Resources.Load("Prefabs/ItemSlot");

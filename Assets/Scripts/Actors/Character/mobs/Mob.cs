@@ -4,21 +4,35 @@ using UnityEngine;
 
 public class Mob : Char
 {
+    
+
     public Mob()
     {
+        texture = "adder";
+
         actPriority = MOB_PRIO;
     }
 
+    private readonly string SLEEP	= "sleep";
     public bool sleeping;
-    public override void Initiate(Vector2Int initPosition)
+
+    public override void StoreInBundle(Bundle bundle)
     {
-        
-        base.Initiate(initPosition);
-        visible = Dungeon.level.heroFOV[position.x, position.y];
-        Dungeon.level.mobs.Add(this);
-        sleeping = true;
-        //Debug.Log("Enemy Spawn");
+
+        base.StoreInBundle(bundle);
+
+        bundle.Put(SLEEP, sleeping);
     }
+
+    public override void RestoreFromBundle(Bundle bundle)
+    {
+
+        base.RestoreFromBundle(bundle);
+
+        sleeping = bundle.Get<bool>(SLEEP);
+    }
+
+    
 
     public override bool MoveToward(Vector2Int dir)
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
+public class Item : IBundlable
 {
 	protected static readonly int TIME_TO_PICK_UP = 10;
 	protected static readonly int TIME_TO_DROP = 10;
@@ -149,6 +149,20 @@ public class Item
     {
 		return false;
     }
+
+	private static readonly string QUANTITY		= "quantity";
+
+	public virtual void StoreInBundle(Bundle bundle)
+	{
+		bundle.Put(QUANTITY, quantity);
+	}
+
+	public virtual void RestoreFromBundle(Bundle bundle)
+	{
+		quantity = bundle.Get<int>(QUANTITY);
+		
+	}
+
 
 	public override string ToString()
 	{

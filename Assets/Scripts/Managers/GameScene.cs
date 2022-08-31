@@ -1,17 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameScene : MonoBehaviour
 {
+
     public static GameScene instance = null;
+
+    private GameObject hero;
+
+    public GameObject CharPrefab;
+    public static Transform CharSpritesParent;
+
+
     public TileManager tileScript;
-    public Canvas UI;
     public bool onControll = false;
-    public readonly float moveTime = 0.1f;
+    public static readonly float moveTime = 0.1f;
     public bool spriteActing = false;
     public bool endAnimationQueue;
     public bool IsHeroAlive = true;
+
 
     void Awake()
     {
@@ -24,31 +34,25 @@ public class GameScene : MonoBehaviour
 
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+       
+        Button Quit = GameObject.Find("Quit").GetComponent<Button>();
+        Quit.onClick.AddListener(OnClickExit);
 
         tileScript = GetComponent<TileManager>();
         tileScript.Initiate(new Vector2Int(32, 32));
 
         StaticSetup();
 
-        Descend();
-    }
+        CharSpritesParent = GameObject.Find("CharSprites").transform;
 
-    private void Descend()
-    {
-        //Debug.Log("Descending");
-        if (Dungeon.hero == null)
+        CharSprite.Link(Dungeon.hero);
+        Dungeon.hero.sprite.focus = true;
+        foreach(Mob mob in Dungeon.level.mobs)
         {
-            Dungeon.Initiate();
+            CharSprite.Link(mob);
         }
-        //Debug.Log("Dungeon Initiated");
-        Level level;
-        //if(Dungeon.depth >= deepest)
-        level = Dungeon.NewLevel();
-        //Debug.Log("Dungeon New level");
-        Dungeon.SwitchLevel(level, level.entrance);
-        //Debug.Log("Dungeon Switched");
-        Dungeon.level.UpdateFieldOfView(Dungeon.hero.position);
+
+
     }
 
     //public static void Add(Mob mob) only for respawn
@@ -57,7 +61,8 @@ public class GameScene : MonoBehaviour
     {
         //Debug.Log("GM StaticSetup");
         Level.StaticSetup();
-        Char.StaticSetup();
+        Actor.gameScript = this;
+        CharSprite.Clear();
         //Debug.Log("GM StaticSetup Succsess");
     }
 
@@ -82,5 +87,11 @@ public class GameScene : MonoBehaviour
 
         StartCoroutine(CharSprite.PlayClipQueue());
         endAnimationQueue = false;
+    }
+
+    public void OnClickExit()
+    {
+        Dungeon.SaveAll();
+        SceneManager.LoadScene(0);
     }
 }

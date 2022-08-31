@@ -9,6 +9,8 @@ public class Loader : MonoBehaviour
     void Awake()
     {
         //Debug.Log("Loader Awake");
+        GameObject.Find("Main Camera").AddComponent<CameraManager>();
         Instantiate(GameManager);
+        
     }
 }
