@@ -27,7 +27,7 @@ namespace Gpm.Common.Indicator.Internal
 
         public UnityWebRequest Request(string json)
         {
-            var request = UnityWebRequest.Post(string.Format("{0}/{1}/log", indicatorInfo.url, indicatorInfo.logVersion), json);
+            var request = UnityWebRequest.PostWwwForm(string.Format("{0}/{1}/log", indicatorInfo.url, indicatorInfo.logVersion), json);
 
             byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
 

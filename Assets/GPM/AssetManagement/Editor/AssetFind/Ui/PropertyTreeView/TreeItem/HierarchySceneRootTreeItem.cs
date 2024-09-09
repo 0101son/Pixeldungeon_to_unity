@@ -129,7 +129,7 @@ namespace Gpm.AssetManagement.AssetFind.Ui.PropertyTreeView.TreeItem
                         {
                             if (IsValid() == true)
                             {
-                                if (UnityEditor.SceneManagement.EditorSceneManager.loadedSceneCount > 1)
+                                if (UnityEngine.SceneManagement.SceneManager.loadedSceneCount > 1)
                                 {
                                     if (Ui.Button(cellRect, Strings.KEY_CLOSESCENE) == true)
                                     {

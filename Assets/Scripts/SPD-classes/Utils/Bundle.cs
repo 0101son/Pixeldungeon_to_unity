@@ -35,7 +35,7 @@ public class Bundle
 
     public bool Contains(string key)
     {
-        return data.ContainsKey(key);
+        return true; //data.ContainsKey(key);
     }
 
     public bool Remove(string key)
